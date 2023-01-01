@@ -1,0 +1,6 @@
+{
+    "workbench.colorCustomizations": {
+        "editor.lineNumbers.foreground":"#121212"
+    },
+    "liveServer.settings.port": 5501
+}
