@@ -1,7 +1,11 @@
 import * as vc from './valueConstructor.js';
 import { getStylesNames, ReklamaLink } from './reklamaPlugin.js';
 import * as lc from './listConstructor.js';
-//localStorage.setItem('innerUl', `<li id='♫ghost'>Гостевой режим</li><!---->`)
+if(localStorage.innerUl==null){
+    localStorage.setItem('innerUl', `<li id='♫ghost'>Гостевой режим</li><!---->`);
+    localStorage.setItem('♫ghostbet', 0);
+    localStorage.setItem('♫ghostscore', 0);    
+}
 //localStorage.removeItem('♫Саня')
 let docQS = function (x) {
     return document.querySelector(x);
@@ -193,7 +197,8 @@ docQS('#saveAccount').onclick = () => {
         ul.innerHTML = localStorage.getItem('innerUl');
         localStorage.setItem('♫' + input.value, input.value);
         localStorage.setItem('♫' + input.value + 'score', score.getValue());
-        localStorage.setItem('♫' + input.value + 'bet', bet.getValue())
+        localStorage.setItem('♫' + input.value + 'bet', bet.getValue());
+        every();
     } else {
         alert('Некорекктное имя аккаунта');
         console.log(x);
