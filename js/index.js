@@ -1,12 +1,13 @@
 import * as vc from './valueConstructor.js';
 import { getStylesNames, ReklamaLink } from './reklamaPlugin.js';
 import * as lc from './listConstructor.js';
-if(localStorage.innerUl==null){
+if (localStorage.innerUl == null) {
     localStorage.setItem('innerUl', `<li id='♫ghost'>Гостевой режим</li><!---->`);
     localStorage.setItem('♫ghostbet', 0);
-    localStorage.setItem('♫ghostscore', 0);    
-}
-//localStorage.removeItem('♫Саня')
+    localStorage.setItem('♫ghostscore', 0);
+    localStorage.setItem('♫ghosthistory', '');
+};
+//localStorage.clear()
 let docQS = function (x) {
     return document.querySelector(x);
 };
@@ -23,7 +24,7 @@ let selectedUser = '♫ghost';
 localStorage.setItem('selectedUser', selectedUser)
 let width = document.querySelector('.track1').offsetWidth;
 let height = width * 0.1267;
-let list = new lc.List({
+let historyList = new lc.List({
     'parent': docQS('.controlPad'),
     'style': [('line-height: 140%;padding: 10px 20px 10px 20px;font-size: 2.1em;color: #FFFFFF;flex-grow: 1;border: 2px white solid;box-shadow: 0px 0px 4px rgba(255, 255, 255, 0.44); overflow-y:auto; max-height:' + docQS('.controlPad').offsetHeight + 'px; box-sizing:border-box; overflow-x:auto; max-width:' + "66.93%" + ';'), 'margin-bottom: 5px;'],
 });
@@ -44,7 +45,7 @@ export let score = new vc.ValueObject({
     'value': 0,
     'defaultText': 'Твой счёт: <span id="score">&value&</span> $',
     'object': docQS('.score'),
-})
+});
 let plusTen = docQS('.plus');
 let minusTen = docQS('.minus');
 let allCash = docQS('.allCash');
@@ -67,6 +68,8 @@ function every() {
     };
     localStorage.setItem(localStorage.getItem('selectedUser') + 'score', score.getValue());
     localStorage.setItem(localStorage.getItem('selectedUser') + 'bet', bet.getValue());
+
+    docQS('#myList0').innerHTML = localStorage.getItem(selectedUser + 'history')
 
     checkEm()
 };
@@ -105,7 +108,8 @@ document.body.onclick = checkEm();
 checkEm()
 start.onclick = function () {
     if (bet.value > 0 && selectedNum != null) {
-        list.addLi('Вы поставили ставку в размере ' + bet.getValue() + '$ на машину номер ' + selectedNum + '. Кто же победит?')
+        historyList.addLi('Вы поставили ставку в размере ' + bet.getValue() + '$ на машину номер ' + selectedNum + '. Кто же победит?');
+        localStorage.setItem(selectedUser + 'history', docQS('#myList0').innerHTML);
         let btns = [start, plusTen, minusTen, allCash, numOne, numTwo];
         for (let i = 0; i < btns.length; i++) {
             btns[i].classList.add('_disabledBtns_');
@@ -151,10 +155,12 @@ let go = function (car, carNum) {
             if (carNum == selectedNum) {
                 alert(`Победа`);
                 score.addValue(bet.getValue() * 2);
-                list.addLi('<span style="color:green;">Победа!</span> Вы ставили ставку на машину номер ' + selectedNum + '. К счету было добавлено ' + bet.getValue() * 2 + '$. Текущий счет ' + score.getValue() + '$.')
+                historyList.addLi('<span style="color:green;">Победа!</span> Вы ставили ставку на машину номер ' + selectedNum + '. К счету было добавлено ' + bet.getValue() * 2 + '$. Текущий счет ' + score.getValue() + '$.');
+                localStorage.setItem(selectedUser + 'history', docQS('#myList0').innerHTML);
                 clearInterval(interval);
             } else {
-                list.addLi('<span style="color:red;">Проигрыш.</span> Вы ставили ставку на машину номер ' + selectedNum + '. Вы потеряли ' + bet.getValue() + '$. Текущий счет ' + score.getValue() + '$.')
+                historyList.addLi('<span style="color:red;">Проигрыш.</span> Вы ставили ставку на машину номер ' + selectedNum + '. Вы потеряли ' + bet.getValue() + '$. Текущий счет ' + score.getValue() + '$.');
+                localStorage.setItem(selectedUser + 'history', docQS('#myList0').innerHTML);
                 alert(`Проигрышь`);
                 clearInterval(interval);
             }
@@ -179,7 +185,7 @@ function checkSelect(e) {
 };
 numOne.onclick = checkSelect;
 numTwo.onclick = checkSelect;
-ul.id = 'myList0';
+ul.id = 'myList1';
 ul.innerHTML = localStorage.getItem('innerUl');
 ul.style = 'width:20%;';
 docQS('#saveAccount').onclick = () => {
@@ -198,8 +204,8 @@ docQS('#saveAccount').onclick = () => {
         localStorage.setItem('♫' + input.value, input.value);
         localStorage.setItem('♫' + input.value + 'score', 0);
         localStorage.setItem('♫' + input.value + 'bet', 0);
-        score.setValue(localStorage.getItem(selectedUser+'score'));
-        bet.setValue(localStorage.getItem(selectedUser+'bet'));
+        score.setValue(localStorage.getItem(selectedUser + 'score'));
+        bet.setValue(localStorage.getItem(selectedUser + 'bet'));
         localStorage.setItem('♫' + input.value + 'history', '');
         every();
     } else {
@@ -215,7 +221,7 @@ docQS('#accounts').onclick = (e) => {
         score.setValue(localStorage.getItem(el.id + 'score'))
         selectedUser = el.id;
         localStorage.setItem('selectedUser', selectedUser);
-        localStorage.getItem('♫' + input.value + 'history', '');
+        historyList.ul.innerHTML = localStorage.getItem('♫' + selectedUser + 'history', '');
     };
     every()
 };
@@ -230,9 +236,7 @@ contextMenu.addLi('<a href="#" class="╦context-menu__link fa fa-delete"> Уд�
 
 let menu = document.querySelector("#╦context-menu");
 let menuState = 0;
-let cross = docQS('#cross');
 let active = "context-menu--active";
-
 let eee = null;
 oncontextmenu = function (e) {
     checkEm();
@@ -332,8 +336,11 @@ docQS('.fa-delete').onclick = () => {
 };
 bet.setValue(localStorage.getItem(selectedUser + 'bet'));
 score.setValue(localStorage.getItem(selectedUser + 'score'));
-every();
 docQS('.exit').onclick = (e) => {
     let target = e.target;
     target.parentNode.style.display = 'none';
 };
+
+
+
+every();
