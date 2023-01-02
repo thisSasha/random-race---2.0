@@ -53,9 +53,9 @@ let allCashWhere = bet;
 let allCashUnWhere = score;
 function every() {
     if (score.value == 0 && bet.value == 0) {
-        myReklama.powerOn()
+        myReklama.powerOn();
     } else {
-        myReklama.powerOff()
+        myReklama.powerOff();
     }
     if (bet.value != 0) {
         allCash.innerHTML = 'Вернуть все';
@@ -69,7 +69,7 @@ function every() {
     localStorage.setItem(localStorage.getItem('selectedUser') + 'score', score.getValue());
     localStorage.setItem(localStorage.getItem('selectedUser') + 'bet', bet.getValue());
 
-    docQS('#myList0').innerHTML = localStorage.getItem(selectedUser + 'history')
+    docQS('#myList0').innerHTML = localStorage.getItem(selectedUser + 'history');
 
     checkEm()
 };
@@ -95,9 +95,11 @@ minusTen.onclick = function () {
     };
     every();
 };
-docQS('a#myLink0').onclick = function () {
+historyList.a.onclick = function () {
     score.addValue(50)
     every()
+    historyList.addLi('Была просмотрена реклама, за которую вы получили 50$');
+    localStorage.setItem(selectedUser + 'history', docQS('#myList0').innerHTML);
 };
 function checkEm() {
     let localWidth = document.body.offsetWidth;
