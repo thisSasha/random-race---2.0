@@ -96,8 +96,8 @@ minusTen.onclick = function () {
     every();
 };
 myReklama.a.onclick = function () {
-    score.addValue(50)
-    every()
+    score.addValue(50);
+    every();
     historyList.addLi('Была просмотрена реклама, за которую вы получили 50$');
     localStorage.setItem(selectedUser + 'history', docQS('#myList0').innerHTML);
 };
