@@ -60,16 +60,22 @@ function List(params) {
             texxt = text;
         };
         if (type[0] == undefined || type[0] == 'id') {
-            thisForChildren.ul.removeChild(document.getElementById(texxt))
+            thisForChildren.ul.removeChild(document.getElementById(texxt));
         } else if (type[0] == 'text') {
             for (let i = 0; i < this.articles.length; i++) {
                 const element = this.articles[i];
                 if (element.innerText == texxt) {
-                    thisForChildren.ul.removeChild(document.getElementById(element.id))
-                }
-            }
-        }
-    }
+                    thisForChildren.ul.removeChild(document.getElementById(element.id));
+                };
+            };
+        };
+    };
+    this.clear = function() {
+        for (let i = 0; i < this.articles.length; i++) {
+            const el = this.articles[i];
+            this.delLi(el.innerHTML);
+        };
+    };
     this.addLi = function (text, ...customAtributtes) {
         let texxt
         if (typeof text == "object") {

@@ -196,8 +196,11 @@ docQS('#saveAccount').onclick = () => {
         localStorage.setItem('innerUl', localStorage.getItem('innerUl') + newUserInString)
         ul.innerHTML = localStorage.getItem('innerUl');
         localStorage.setItem('♫' + input.value, input.value);
-        localStorage.setItem('♫' + input.value + 'score', score.getValue());
-        localStorage.setItem('♫' + input.value + 'bet', bet.getValue());
+        localStorage.setItem('♫' + input.value + 'score', 0);
+        localStorage.setItem('♫' + input.value + 'bet', 0);
+        score.setValue(localStorage.getItem(selectedUser+'score'));
+        bet.setValue(localStorage.getItem(selectedUser+'bet'));
+        localStorage.setItem('♫' + input.value + 'history', '');
         every();
     } else {
         alert('Некорекктное имя аккаунта');
@@ -211,8 +214,8 @@ docQS('#accounts').onclick = (e) => {
         bet.setValue(localStorage.getItem(el.id + 'bet'))
         score.setValue(localStorage.getItem(el.id + 'score'))
         selectedUser = el.id;
-        localStorage.setItem('selectedUser', selectedUser)
-
+        localStorage.setItem('selectedUser', selectedUser);
+        localStorage.getItem('♫' + input.value + 'history', '');
     };
     every()
 };
