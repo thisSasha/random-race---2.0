@@ -1,5 +1,5 @@
 import * as vc from './valueConstructor.js';
-import { getStylesNames, ReklamaLink } from './reklamaPlugin.js';
+import { ReklamaLink } from './reklamaPlugin.js';
 import * as lc from './listConstructor.js';
 if (localStorage.innerUl == null) {
     localStorage.setItem('innerUl', `<li id='♫ghost'>Гостевой режим</li><!---->`);
@@ -26,11 +26,11 @@ let width = document.querySelector('.track1').offsetWidth;
 let height = width * 0.1267;
 let historyList = new lc.List({
     'parent': docQS('.controlPad'),
-    'style': [('line-height: 140%;padding: 10px 20px 10px 3%;font-size: 2.1em;color: #FFFFFF;flex-grow: 1;border: 2px white solid;box-shadow: 0px 0px 4px rgba(255, 255, 255, 0.44); overflow-y:auto; max-height:' + docQS('.controlPad').offsetHeight + 'px; height:' + docQS('.controlPad').offsetHeight + 'px; box-sizing:border-box; overflow-x:auto; max-width:' + "66.93%" + ';'), 'list-style: number; margin-bottom: 5px;'],
+    'style': [('line-height: 140%;padding: 10px 20px 10px 3%;font-size: 2.1em;color: var(--color);flex-grow: 1;border: 2px var(--color) solid;box-shadow: 0px 0px 4px rgba(255, 255, 255, 0.44); overflow-y:auto; max-height:' + docQS('.controlPad').offsetHeight + 'px; height:' + docQS('.controlPad').offsetHeight + 'px; box-sizing:border-box; overflow-x:auto; max-width:' + "66.93%" + ';'), 'list-style: number; margin-bottom: 5px;'],
 });
 let myReklama = new ReklamaLink(document.querySelector('div.management'), 'Получить деньги', 1, 'newPage', '/reklama.html');
 
-let theme = 'black';
+let theme = 'white';
 let start = document.querySelector('.start');
 let numTwo = document.querySelector('.numTwo');
 let numOne = document.querySelector('.numOne');
@@ -102,27 +102,39 @@ myReklama.a.onclick = function () {
     historyList.addLi('Была просмотрена реклама, за которую вы получили 50$');
     localStorage.setItem(selectedUser + 'history', docQS('#myList0').innerHTML);
 };
+let themeNode = document.createElement('link');
+themeNode.rel = 'stylesheet';
+themeNode.href = './css/black.css';
 function checkEm() {
     let link = document.createElement('link');
     link.rel = 'stylesheet';
-    if(theme=='black'){
-        link.href = './css/black.css'
-        document.head.appendChild(link)
-    } else{
-
-    }
+    if (theme == 'black') {
+        if (docQS('link#themeWhite') != undefined) {
+            document.head.removeChild(themeNode);
+        };
+        link.href = './css/black.css';
+        link.id = 'themeBlack';
+    } else {
+        if (docQS('link#themeBlack') != undefined) {
+            document.head.removeChild(themeNode);
+        };
+        link.href = './css/white.css';
+        link.id = 'themeWhite';
+    };
+    themeNode.href = link.href;
+    document.head.appendChild(link);
     let localWidth = document.body.offsetWidth;
     let localHeight = document.body.offsetHeight;
-    if(localHeight>localWidth){
+    if (localHeight > localWidth) {
         docQS('#rotateDevice').style.display = 'block';;
         document.body.style.overflow = 'hidden';
-        if(theme=='black'){
+        if (theme == 'black') {
             docQS('#rotateDeviceImg').src = './res/rotateDeviceBlackTheme.png';
-        } else{
+        } else {
             docQS('#rotateDeviceImg').src = './res/rotateDeviceWhiteTheme.png';
         };
     };
-    historyList.ul.style.height = docQS('.controlPad').offsetHeight+'px';
+    historyList.ul.style.height = docQS('.controlPad').offsetHeight + 'px';
     document.body.style.setProperty('--height', height + 'px');
     document.body.style.fontSize = `${localWidth / 151.9}px`;
 };
