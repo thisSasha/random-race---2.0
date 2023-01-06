@@ -17,7 +17,6 @@ function List(params) {
         console.error('reqiredParameter@parent. Обязательный параметр parent в params(' + this.id + ')');
         return false;
     };
-    let thisForChildren = this;
     this.articlesParams = params.articlesParams;
     this.localStorage = params.localStorage
     this.ul = document.createElement('ul');
@@ -25,6 +24,7 @@ function List(params) {
     this.id = this.ul.className;
     this.ul.id = 'myList' + myIL.toString();
     this.articles = [];
+    let thisForChildren = this;
     if (typeof params.style == 'object') {
         this.ul.style = params.style[0];
         this.liStyle = params.style[1];
@@ -86,7 +86,7 @@ function List(params) {
         };
         let li = document.createElement('li');
         li.id = 'li' + this.articles.length
-        li.style.listStyleType = thisForChildren.listStyleType;
+        li.style.listStyle = this.listStyleType;
         li.style = thisForChildren.liStyle;
         li.innerHTML = texxt;
         if (thisForChildren.articlesParams != undefined) {
@@ -122,7 +122,7 @@ function List(params) {
         this.ul.className = params.id;
         this.ul.id = params.id;
         this.id = params.id;
-    }
+    };
     thisForChildren = this;
     document.getElementById(this.id).innerHTML = this.ul.innerHTML;
 };

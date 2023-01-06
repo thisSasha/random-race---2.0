@@ -1,12 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap'); 
-*   { 
-     font-family: 'Russo One'; 
-} 
+@import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
+
+* {
+    font-family: 'Russo One';
+}
 
 body {
     --height: 0px;
     font-size: 10px;
-    background: #131313;
+    background: var(--two);
 }
 
 h1 {
@@ -14,15 +15,15 @@ h1 {
     font-size: 4.8em;
     text-align: center;
     line-height: 120.83%;
-    color: #131313;
-    text-shadow: 0px 5px 5px #FFFFFF;
+    color: var(--two);
+    text-shadow: 0px 5px 5px var(--color);
 }
 
 p {
     font-size: 36px;
     line-height: 43px;
-    color: #FFFFFF;
-    text-shadow: 0px 4px 4px rgba(255, 255, 255, 0.41);
+    color: var(--color);
+    text-shadow: 0px 4px 4px var(--textShadow);
 }
 
 .container {
@@ -34,20 +35,20 @@ p {
 
 .track1 {
     position: relative;
-    background-color: #929292;
+    background-color: var(--trackColor);
     height: var(--height);
 }
 
 .track2 {
     margin-bottom: 48px;
     position: relative;
-    background-color: #929292;
+    background-color: var(--trackColor);
     height: var(--height);
 }
 
 .track1 .horizontalLine {
     position: absolute;
-    background-color: white;
+    background-color: var(--color);
     width: 100%;
     bottom: 6.67%;
     height: 6.67%;
@@ -56,7 +57,7 @@ p {
 .track1 .startLine {
     z-index: 9;
     position: absolute;
-    background-color: white;
+    background-color: var(--color);
     width: 0.42%;
     top: 0%;
     left: 15.12%;
@@ -65,7 +66,7 @@ p {
 
 .track2 .horizontalLine {
     position: absolute;
-    background-color: white;
+    background-color: var(--color);
     width: 100%;
     top: 6.67%;
     height: 6.67%;
@@ -74,7 +75,7 @@ p {
 .track2 .startLine {
     z-index: 10;
     position: absolute;
-    background-color: white;
+    background-color: var(--color);
     width: 0.42%;
     bottom: 0%;
     left: 15.12%;
@@ -108,9 +109,9 @@ p {
     gap: 16px;
     flex-direction: column;
     width: 30.17%;
-    border: 2px white solid;
+    border: 2px var(--color) solid;
     padding: 24px 12px;
-    box-shadow: 0px 0px 4px rgba(255, 255, 255, 0.44);
+    box-shadow: 0px 0px 4px var(--textShadow);
 }
 
 .controlPad {
@@ -120,7 +121,7 @@ p {
 
 .score {
     font-size: 3.6em;
-    color: #FFFFFF;
+    color: var(--color);
 }
 
 .grid {
@@ -134,48 +135,48 @@ p {
 
 .plus {
     font-size: 1em;
-    background: #FFFFFF;
-    box-shadow: 0px 5px 7px rgba(255, 255, 255, 0.63);
-    color: #000000;
-    text-shadow: 0px 4px 4px #D81515;
+    background: var(--color);
+    box-shadow: 0px 5px 7px var(--textShadow);
+    color: var(--bg-color);
+    text-shadow: 0px 4px 4px var(--textShadowTwo);
 }
 
 .minus {
     font-size: 1em;
-    background: #131313;
-    color: #FFFFFF;
-    text-shadow: 0px 4px 4px #D81515;
-    box-shadow: 0px 5px 7px rgba(255, 255, 255, 0.63);
+    background: var(--two);
+    color: var(--color);
+    text-shadow: 0px 4px 4px var(--textShadowTwo);
+    box-shadow: 0px 5px 7px var(--boxShadow);
 }
 
 .allCash {
     grid-column: 1/3;
     font-size: 1em;
-    color: #FFFFFF;
-    text-shadow: 0px 4px 4px #1B1616;
-    background: #f5d98c;
-    box-shadow: 0px 5px 7px rgba(255, 255, 255, 0.63);
+    color: var(--color);
+    text-shadow: 0px 4px 4px var(--textShadowThree);
+    background: var(--allCashBg);
+    box-shadow: 0px 5px 7px var(--boxShadow);
 }
 
 .label {
-    color: #FFFFFF;
-    text-shadow: 0px 4px 4px rgba(255, 255, 255, 0.41);
+    color: var(--color);
+    text-shadow: 0px 4px 4px var(--textShadow);
 }
 
 .numOne {
-    background: #929292;
-    box-shadow: 0px 5px 7px rgba(255, 255, 255, 0.63);
+    background: var(--trackColor);
+    box-shadow: 0px 5px 7px var(--boxShadow);
     font-size: 1em;
-    color: #FFFFFF;
-    text-shadow: 0px 4px 4px #1B1616;
+    color: var(--color);
+    text-shadow: 0px 4px 4px var(--textShadowThree);
 }
 
 .numTwo {
-    background: #929292;
-    box-shadow: 0px 5px 7px rgba(255, 255, 255, 0.63);
+    background: var(--trackColor);
+    box-shadow: 0px 5px 7px var(--boxShadow);
     font-size: 1em;
-    color: #FFFFFF;
-    text-shadow: 0px 4px 4px #1B1616;
+    color: var(--color);
+    text-shadow: 0px 4px 4px var(--textShadowThree);
 }
 
 ._selectedNum_ {
@@ -191,10 +192,10 @@ p {
 .start {
     grid-column: 1/3;
     font-size: 1em;
-    color: #FFFFFF;
-    text-shadow: 0px 4px 4px #1B1616;
-    background: #D81515;
-    box-shadow: 0px 5px 7px rgba(255, 255, 255, 0.63);
+    color: var(--color);
+    text-shadow: 0px 4px 4px var(--textShadowThree);
+    background: var(--textShadowTwo);
+    box-shadow: 0px 5px 7px var(--boxShadow);
 }
 
 .management>* {
@@ -236,8 +237,8 @@ span {
 }
 
 .╦context-menu {
-    --x:0px;
-    --y:0px;
+    --x: 0px;
+    --y: 0px;
     display: none;
     position: absolute;
     z-index: 100009;
@@ -246,32 +247,36 @@ span {
     min-height: 5%;
     max-height: 30%;
     min-width: 15%;
-    color: white;
+    color: var(--color);
     background-color: #262628;
 }
 
-.╦context-menu__item{
-    border: white 1px solid;
+.╦context-menu__item {
+    border: var(--color) 1px solid;
     padding: 5px;
     width: 100%;
     display: block;
 }
+
 .╦context-menu__link {
     font-size: 3em;
     display: block;
     width: 100%;
-    color: white;
+    color: var(--color);
 }
+
 .context-menu--active {
     display: block;
     text-align: center;
 }
-.popups>*{
-    box-shadow: 0px 0px 8px white;
-    border: 3px solid white;
+
+.popups>* {
+    box-shadow: 0px 0px 8px var(--color);
+    border: 3px solid var(--color);
     display: none;
 }
-.popups>.edit{
+
+.popups>.edit {
     text-align: center;
     position: fixed;
     top: 50%;
@@ -281,20 +286,22 @@ span {
     width: 60vw;
     transform: translate(-50%, -50%);
     z-index: 800;
-    background-color: rgb(58,58,58);
+    background-color: rgb(58, 58, 58);
 }
-.popups label{
-    color: white;
+
+.popups label {
+    color: var(--color);
     font-size: 5em;
     display: block;
     width: 100%;
     margin-bottom: 10px;
     margin-top: 5px;
 }
-.popups input{
-    background-color: black;
-    color: white;
-    border: white 1px solid;
+
+.popups input {
+    background-color: var(--bg-color);
+    color: var(--color);
+    border: var(--color) 1px solid;
     width: 88%;
     height: 20%;
     padding: 4px;
@@ -302,10 +309,11 @@ span {
     display: block;
     margin: auto auto 10px auto;
 }
-.popups button{
-    background-color: black;
-    color: white;
-    border: white 1px solid;
+
+.popups button {
+    background-color: var(--bg-color);
+    color: var(--color);
+    border: var(--color) 1px solid;
     width: 77%;
     height: 20%;
     padding: 4px;
@@ -314,15 +322,36 @@ span {
     border-radius: 8px;
     margin: auto auto 10px auto;
 }
-.popups .exit{
-    color: white;
+
+.popups .exit {
+    color: var(--color);
     font-size: 4em;
     position: absolute;
     left: 96%;
     cursor: pointer;
 }
 
-
+.rotateDevice {
+    display: none;
+    text-align: center;
+    color: var(--color);
+    width: 100vw;
+    height: 200vh;
+    background-color: rgb(46, 46, 46);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 9999999;
+}
+.rotateDevice img{
+    margin-top: 48%;
+    height: 20%;
+    margin-bottom: 8%;
+}
+.rotateDevice p{
+    display: block;
+    font-size: 8em;
+}
 
 /* 
 Я должен это разделитьЯ должен это разделитьЯ должен это разделитьЯ должен это разделитьЯ должен это разделитьЯ должен это разделитьЯ должен это разделитьЯ должен это разделитьЯ должен это разделитьЯ должен это разделитьЯ должен это разделитьЯ должен это разделитьЯ должен это разделитьЯ должен это разделитьЯ должен это разделитьЯ должен это разделитьЯ должен это разделитьЯ должен это разделитьЯ должен это разделитьЯ должен это разделитьЯ должен это разделитьЯ должен это разделитьЯ должен это разделитьЯ должен это разделитьЯ должен это разделитьЯ должен это разделитьЯ должен это разделитьЯ должен это разделитьЯ должен это разделитьЯ должен это разделитьЯ должен это разделитьЯ должен это разделитьЯ должен это разделитьЯ должен это разделитьЯ должен это разделитьЯ должен это разделитьЯ должен это разделитьЯ должен это разделитьЯ должен это разделитьЯ должен это разделитьЯ должен это разделитьЯ должен это разделитьЯ должен это разделитьЯ должен это разделитьЯ должен это разделитьЯ должен это разделить
@@ -388,7 +417,7 @@ span {
 
 .nav input {
     margin-top: -10px;
-    border: white 1px solid;
+    border: var(--color) 1px solid;
     width: 88%;
 }
 
@@ -409,11 +438,11 @@ span {
 }
 
 .nav button {
-    border: #FFFFFF solid 0.5px;
+    border: var(--color) solid 0.5px;
     border-radius: 10px;
     margin-top: 8px;
     margin-bottom: 4px;
-    box-shadow: 1.5px 1.5px white;
+    box-shadow: 1.5px 1.5px var(--color);
 }
 
 .nav button:active {
@@ -424,7 +453,7 @@ span {
     float: none;
 }
 
-.nav li:hover>ul{
+.nav li:hover>ul {
     display: block;
     background: #222;
     border-top: 0;
