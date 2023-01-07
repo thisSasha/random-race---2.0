@@ -1,10 +1,9 @@
 body{
     --color: black;
-    --bg-color: #ffffff;
-    --textShadow: rgba(255, 255, 255, 0.41);
+    --bg-color: rgb(233, 233, 233);
     --trackColor: #929292;
-    --textShadowTwo: #D81515;
-    --boxShadow: rgba(255, 255, 255, 0.63);
+    --textShadowTwo: #a30d0d;
+    --boxShadow: rgba(12, 12, 12, 0.63);
     --textShadowThree: #1B1616;
     --allCashBg: #f5d98c;
     --navColor: rgb(58, 58, 58);

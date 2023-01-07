@@ -102,27 +102,13 @@ myReklama.a.onclick = function () {
     historyList.addLi('Была просмотрена реклама, за которую вы получили 50$');
     localStorage.setItem(selectedUser + 'history', docQS('#myList0').innerHTML);
 };
-let themeNode = document.createElement('link');
-themeNode.rel = 'stylesheet';
-themeNode.href = './css/black.css';
 function checkEm() {
-    let link = document.createElement('link');
-    link.rel = 'stylesheet';
+    let link = docQS('#theme');
     if (theme == 'black') {
-        if (docQS('link#themeWhite') != undefined) {
-            document.head.removeChild(themeNode);
-        };
         link.href = './css/black.css';
-        link.id = 'themeBlack';
     } else {
-        if (docQS('link#themeBlack') != undefined) {
-            document.head.removeChild(themeNode);
-        };
         link.href = './css/white.css';
-        link.id = 'themeWhite';
     };
-    themeNode.href = link.href;
-    document.head.appendChild(link);
     let localWidth = document.body.offsetWidth;
     let localHeight = document.body.offsetHeight;
     if (localHeight > localWidth) {

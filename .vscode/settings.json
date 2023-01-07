@@ -2,5 +2,6 @@
     "workbench.colorCustomizations": {
         "editor.lineNumbers.foreground":"#121212"
     },
-    "liveServer.settings.port": 5501
+    "liveServer.settings.port": 5501,
+    "liveServer.settings.multiRootWorkspaceName": "random race α 2.0"
 }
