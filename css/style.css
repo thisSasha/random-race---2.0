@@ -67,7 +67,7 @@ p {
 .track2 .horizontalLine {
     position: absolute;
     background-color: white;
-    width: 100%;
+    width: 100%;    
     top: 6.67%;
     height: 6.67%;
 }
@@ -455,4 +455,13 @@ span {
 
 .nav>li.span:active {
     background-color: var(--liActive);
+}
+
+@media (max-width:400px) and (orientation:portrait) {
+    .rotateDevice{
+        display: block;
+    }
+    body{
+        overflow: hidden;
+    }
 }

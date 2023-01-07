@@ -110,15 +110,10 @@ function checkEm() {
         link.href = './css/white.css';
     };
     let localWidth = document.body.offsetWidth;
-    let localHeight = document.body.offsetHeight;
-    if (localHeight > localWidth) {
-        docQS('#rotateDevice').style.display = 'block';;
-        document.body.style.overflow = 'hidden';
-        if (theme == 'black') {
-            docQS('#rotateDeviceImg').src = './res/rotateDeviceBlackTheme.png';
-        } else {
-            docQS('#rotateDeviceImg').src = './res/rotateDeviceWhiteTheme.png';
-        };
+    if (theme == 'black') {
+        docQS('#rotateDeviceImg').src = './res/rotateDeviceBlackTheme.png';
+    } else {
+        docQS('#rotateDeviceImg').src = './res/rotateDeviceWhiteTheme.png';
     };
     historyList.ul.style.height = docQS('.controlPad').offsetHeight + 'px';
     document.body.style.setProperty('--height', height + 'px');
@@ -297,22 +292,16 @@ menu.onclick = function () {
     docQS('#accounts').style.background = '#222';
     ul.style = 'position: absolute;list-style: none;z-index: 400;padding: 0;overflow: hidden;display: block;background: #222;border - top: 0;-webkit - box - shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.25);box - shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.25); '
 };
-for (let i = 0; i < document.getElementsByTagName('*').length; i++) {
-    const el = document.getElementsByTagName('*')[i];
-    if (el.onclick == null) {
-        el.onclick = (e) => {
-            //Когда выходишь из КОНТЕКСТ-менюшки
-            checkEm();
-            if (menuState == 1 && e.target.className.split('')[0] != '╦') {
-                eee.style.background = ''
-                eee.style = ''
-                docQS('#accounts').style.background = '';
-                ul.style = ''
-                menuState = 0;
-                menu.classList.remove(active);
-            };
-        };
-    };
+
+//Когда выходишь из КОНТЕКСТ-менюшки
+checkEm();
+if (menuState == 1 && e.target.className.split('')[0] != '╦') {
+    eee.style.background = ''
+    eee.style = ''
+    docQS('#accounts').style.background = '';
+    ul.style = ''
+    menuState = 0;
+    menu.classList.remove(active);
 };
 //                              edit>context-menu
 docQS('.fa-editName').onclick = () => {
@@ -366,7 +355,6 @@ docQS('.exit').onclick = (e) => {
     let target = e.target;
     target.parentNode.style.display = 'none';
 };
-
-
+historyList.ul.style.maxHeight = historyList.ul.style.height;
 
 every();
