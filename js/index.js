@@ -58,7 +58,34 @@ let minusTen = docQS('.minus');
 let allCash = docQS('.allCash');
 let allCashWhere = bet;
 let allCashUnWhere = score;
+docQS('.material-symbols-outlined').onclick = function () {
+
+    if (docQS('.material-symbols-outlined').style.transform != 'rotate(360deg)') {
+        docQS('.material-symbols-outlined').style.transform = 'rotate(360deg)';
+    } else {
+        docQS('.material-symbols-outlined').style.transform = '';
+    }
+
+    if (theme == 'white') {
+        theme = 'black';
+    } else {
+        theme = 'white'
+    };
+    every();
+};
 function every() {
+
+    let link = docQS('#theme');
+    if (theme == 'black') {
+        link.href = './css/black.css';
+    } else {
+        link.href = './css/white.css';
+    };
+    if (theme == 'black') {
+        docQS('#rotateDeviceImg').src = './res/rotateDeviceBlackTheme.png';
+    } else {
+        docQS('#rotateDeviceImg').src = './res/rotateDeviceWhiteTheme.png';
+    };
     if (score.value == 0 && bet.value == 0) {
         myReklama.powerOn();
     } else {
@@ -73,7 +100,11 @@ function every() {
         allCashWhere = bet;
         allCashUnWhere = score;
     };
-
+    if (theme == 'white') {
+        docQS('.material-symbols-outlined').innerHTML = 'light_mode';
+    } else {
+        docQS('.material-symbols-outlined').innerHTML = 'dark_mode';
+    }
     let newUser = {
         name: selectedUser,
         bet: bet.getValue(),
@@ -115,18 +146,7 @@ myReklama.a.onclick = function () {
     every();
 };
 function checkEm() {
-    let link = docQS('#theme');
-    if (theme == 'black') {
-        link.href = './css/black.css';
-    } else {
-        link.href = './css/white.css';
-    };
     let localWidth = document.body.offsetWidth;
-    if (theme == 'black') {
-        docQS('#rotateDeviceImg').src = './res/rotateDeviceBlackTheme.png';
-    } else {
-        docQS('#rotateDeviceImg').src = './res/rotateDeviceWhiteTheme.png';
-    };
     historyList.ul.style.height = docQS('.controlPad').offsetHeight + 'px';
     document.body.style.setProperty('--height', height + 'px');
     document.body.style.fontSize = `${localWidth / 151.9}px`;
@@ -259,7 +279,7 @@ docQS('#accounts').onclick = (e) => {
     let el = e.target;
     if (el.id.split('')[0] == '♫' && selectedUser != el.id) {
         function f() {
-            selectedUserHTML.setValue(docQS('#'+el.id).innerHTML)
+            selectedUserHTML.setValue(docQS('#' + el.id).innerHTML)
             bet.setValue(JSON.parse(localStorage.getItem(el.id)).bet);
             score.setValue(JSON.parse(localStorage.getItem(el.id)).score);
             selectedUser = el.id;
@@ -410,3 +430,4 @@ let selectedUserHTML = new vc.ValueObject({
     value: document.getElementById(selectedUser).innerHTML,
 });
 every();
+checkEm();

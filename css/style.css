@@ -164,7 +164,7 @@ p {
 }
 
 .numOne {
-    background: var(--trackColor);
+    background: rgb(197, 197, 197);
     box-shadow: 0px 5px 7px var(--boxShadow);
     font-size: 1em;
     color: black;
@@ -172,7 +172,7 @@ p {
 }
 
 .numTwo {
-    background: var(--trackColor);
+    background: rgb(197, 197, 197);
     box-shadow: 0px 5px 7px var(--boxShadow);
     font-size: 1em;
     color: black;
@@ -270,6 +270,8 @@ span {
     display: block;
     text-align: center;
 }
+
+
 
 .popups>* {
     box-shadow: 0px 0px 8px var(--color);
@@ -406,9 +408,6 @@ span {
     background-color: var(--navObjects);
 }
 
-.nav span {
-    cursor: default;
-}
 
 .nav input {
     margin-top: 5px;
@@ -474,6 +473,10 @@ span {
     line-height: 100%;
 }
 
+.material-symbols-outlined{
+    cursor: pointer;
+    transition: 400ms;
+}
 
 @media (max-width:400px) and (orientation:portrait) {
     .rotateDevice {
