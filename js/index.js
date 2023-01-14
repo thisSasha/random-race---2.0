@@ -1,7 +1,7 @@
 import * as vc from './valueConstructor.js';
 import { ReklamaLink } from './reklamaPlugin.js';
 import * as lc from './listConstructor.js';
-//localStorage.clear()
+localStorage.clear()
 if (localStorage.innerUl == null) {
     localStorage.setItem('innerUl', `<li id='♫ghost'>Гостевой режим</li><!---->`);
     let ghostUser = {
