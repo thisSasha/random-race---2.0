@@ -9,8 +9,8 @@ if (localStorage.innerUl == null) {
         password: null,
         history: '',
         score: 0,
-        bet: 0
-    }
+        bet: 0,
+    };
     localStorage.setItem('♫ghost', JSON.stringify(ghostUser))
 };
 
@@ -32,11 +32,11 @@ let width = document.querySelector('.track1').offsetWidth;
 let height = width * 0.1267;
 let historyList = new lc.List({
     'parent': docQS('.controlPad'),
-    'style': [('line-height: 140%;padding: 10px 20px 10px 3%;font-size: 2.1em;color: var(--color);flex-grow: 1;border: 2px var(--color) solid;box-shadow: 0px 0px 4px rgba(255, 255, 255, 0.44); overflow-y:auto; max-height:' + docQS('.management').offsetHeight + 'px; height:' + docQS('.management').offsetHeight + 'px; box-sizing:border-box; overflow-x:auto; max-width:' + "66.93%" + ';'), 'list-style: number; margin-bottom: 5px;'],
+    'style': [('line-height: 140%;padding: 10px 20px 10px 4%;font-size: 2.1em;color: var(--color);flex-grow: 1;border: 2px var(--color) solid;box-shadow: 0px 0px 4px rgba(255, 255, 255, 0.44); overflow-y:auto; max-height:' + docQS('.management').offsetHeight + 'px; height:' + docQS('.management').offsetHeight + 'px; box-sizing:border-box; overflow-x:auto; max-width:' + "66.93%" + ';'), 'list-style: number; margin-bottom: 5px;'],
 });
 let myReklama = new ReklamaLink(document.querySelector('div.management'), 'Получить деньги', 1, 'newPage', './reklama.html');
 
-let theme = 'white';
+let theme = 'black';
 let start = document.querySelector('.start');
 let numTwo = document.querySelector('.numTwo');
 let numOne = document.querySelector('.numOne');
@@ -69,23 +69,19 @@ docQS('.material-symbols-outlined').onclick = function () {
     if (theme == 'white') {
         theme = 'black';
     } else {
-        theme = 'white'
+        theme = 'white';
+    };
+    let link = docQS('#theme');
+    if (theme == 'black') {
+        link.href = './css/black.css';
+        docQS('#rotateDeviceImg').src = './res/rotateDeviceBlackTheme.png';
+    } else {
+        link.href = './css/white.css';
+        docQS('#rotateDeviceImg').src = './res/rotateDeviceWhiteTheme.png';
     };
     every();
 };
 function every() {
-
-    let link = docQS('#theme');
-    if (theme == 'black') {
-        link.href = './css/black.css';
-    } else {
-        link.href = './css/white.css';
-    };
-    if (theme == 'black') {
-        docQS('#rotateDeviceImg').src = './res/rotateDeviceBlackTheme.png';
-    } else {
-        docQS('#rotateDeviceImg').src = './res/rotateDeviceWhiteTheme.png';
-    };
     if (score.value == 0 && bet.value == 0) {
         myReklama.powerOn();
     } else {
@@ -282,6 +278,7 @@ docQS('#accounts').onclick = (e) => {
             selectedUserHTML.setValue(docQS('#' + el.id).innerHTML)
             bet.setValue(JSON.parse(localStorage.getItem(el.id)).bet);
             score.setValue(JSON.parse(localStorage.getItem(el.id)).score);
+            historyList.ul.innerHTML = JSON.parse(localStorage.getItem(el.id)).history;    
             selectedUser = el.id;
             every();
             localStorage.setItem('selectedUser', selectedUser);
