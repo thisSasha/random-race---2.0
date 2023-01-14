@@ -1,13 +1,17 @@
 import * as vc from './valueConstructor.js';
 import { ReklamaLink } from './reklamaPlugin.js';
 import * as lc from './listConstructor.js';
+localStorage.clear()
 if (localStorage.innerUl == null) {
     localStorage.setItem('innerUl', `<li id='♫ghost'>Гостевой режим</li><!---->`);
-    localStorage.setItem('♫ghostbet', 0);
-    localStorage.setItem('♫ghostscore', 0);
-    localStorage.setItem('♫ghosthistory', '');
+    let ghostUser = {
+        name: 'ghost',
+        password: null,
+        history: '',
+    }
+    localStorage.setItem('♫ghost', JSON.stringify(ghostUser))
 };
-//localStorage.clear()
+
 let docQS = function (x) {
     return document.querySelector(x);
 };
@@ -67,10 +71,10 @@ function every() {
         allCashWhere = bet;
         allCashUnWhere = score;
     };
-    localStorage.setItem(localStorage.getItem('selectedUser') + 'score', score.getValue());
-    localStorage.setItem(localStorage.getItem('selectedUser') + 'bet', bet.getValue());
+    localStorage.setItem(localStorage.getItem('selectedUser').score, score.getValue());
+    localStorage.setItem(localStorage.getItem('selectedUser').bet, bet.getValue());
 
-    docQS('#myList0').innerHTML = localStorage.getItem(selectedUser + 'history');
+    docQS('#myList0').innerHTML = localStorage.getItem(selectedUser.hidtory);
 
     checkEm();
 };
@@ -100,7 +104,7 @@ myReklama.a.onclick = function () {
     score.addValue(50);
     every();
     historyList.addLi('Была просмотрена реклама, за которую вы получили 50$');
-    localStorage.setItem(selectedUser + 'history', docQS('#myList0').innerHTML);
+    localStorage.setItem(JSON.parse(localStorage.getItem(selectedUser)).history, docQS('#myList0').innerHTML);
 };
 function checkEm() {
     let link = docQS('#theme');
@@ -124,7 +128,7 @@ checkEm()
 start.onclick = function () {
     if (bet.value > 0 && selectedNum != null) {
         historyList.addLi('Вы поставили ставку в размере ' + bet.getValue() + '$ на машину номер ' + selectedNum + '. Кто же победит?');
-        localStorage.setItem(selectedUser + 'history', docQS('#myList0').innerHTML);
+        localStorage.setItem(JSON.parse(localStorage.getItem(selectedUser)).history, docQS('#myList0').innerHTML);
         let btns = [start, plusTen, minusTen, allCash, numOne, numTwo];
         for (let i = 0; i < btns.length; i++) {
             btns[i].classList.add('_disabledBtns_');
@@ -171,11 +175,11 @@ let go = function (car, carNum) {
                 alert(`Победа`);
                 score.addValue(bet.getValue() * 2);
                 historyList.addLi('<span style="color:green;">Победа!</span> Вы ставили ставку на машину номер ' + selectedNum + '. К счету было добавлено ' + bet.getValue() * 2 + '$. Текущий счет ' + score.getValue() + '$.');
-                localStorage.setItem(selectedUser + 'history', docQS('#myList0').innerHTML);
+                localStorage.setItem(JSON.parse(localStorage.getItem(selectedUser)).history, docQS('#myList0').innerHTML);
                 clearInterval(interval);
             } else {
                 historyList.addLi('<span style="color:red;">Проигрыш.</span> Вы ставили ставку на машину номер ' + selectedNum + '. Вы потеряли ' + bet.getValue() + '$. Текущий счет ' + score.getValue() + '$.');
-                localStorage.setItem(selectedUser + 'history', docQS('#myList0').innerHTML);
+                localStorage.setItem(JSON.parse(localStorage.getItem(selectedUser)).history, docQS('#myList0').innerHTML);
                 alert(`Проигрышь`);
                 clearInterval(interval);
             }
@@ -207,6 +211,7 @@ docQS('#saveAccount').onclick = () => {
     //Сохраняю аккаунтСохраняю аккаунтСохраняю аккаунтСохраняю аккаунтСохраняю аккаунтСохраняю аккаунтСохраняю аккаунтСохраняю аккаунтСохраняю аккаунтСохраняю аккаунт
     let input = docQS('#nameAccount');
     let x = 0;
+    let password = docQS('#passwordAccount');
     if (localStorage.getItem('♫' + input.value) != '' && localStorage.getItem('♫' + input.value) != null) {
         x = 1;
     };
@@ -216,12 +221,18 @@ docQS('#saveAccount').onclick = () => {
         let newUserInString = `<li id='♫${input.value}'>${input.value}</li><!---->`;
         localStorage.setItem('innerUl', localStorage.getItem('innerUl') + newUserInString)
         ul.innerHTML = localStorage.getItem('innerUl');
-        localStorage.setItem('♫' + input.value, input.value);
-        localStorage.setItem('♫' + input.value + 'score', 0);
-        localStorage.setItem('♫' + input.value + 'bet', 0);
-        score.setValue(localStorage.getItem(selectedUser + 'score'));
-        bet.setValue(localStorage.getItem(selectedUser + 'bet'));
-        localStorage.setItem('♫' + input.value + 'history', '');
+        let newUserL = {
+            name: input.value,
+            history: '',
+            score: 0,
+            bet: 0
+        };
+        if (password.value != '') {
+            newUserL.password = password.value;
+        }
+        score.setValue(localStorage.getItem(selectedUser.score));
+        bet.setValue(localStorage.getItem(selectedUser.bet));
+        localStorage.setItem('♫' + input.value, JSON.stringify(newUserL));
         every();
         input.value = 'Аккаунт создан';
         input.style.color = 'red';
@@ -242,7 +253,11 @@ docQS('#accounts').onclick = (e) => {
         score.setValue(localStorage.getItem(el.id + 'score'))
         selectedUser = el.id;
         localStorage.setItem('selectedUser', selectedUser);
-        historyList.ul.innerHTML = localStorage.getItem('♫' + selectedUser + 'history', '');
+        docQS('#myList0').innerHTML = JSON.parse(localStorage.getItem(selectedUser)).history;
+        if(JSON.parse(localStorage.getItem(selectedUser)).history == ''){
+            docQS('#myList0').innerHTML = 'l';
+            console.log('djjfjdj')
+        };
     };
     every()
 };
@@ -349,8 +364,8 @@ docQS('.fa-delete').onclick = () => {
     localStorage.setItem('innerUl', inUl.join('<!---->'));
     eee.parentNode.removeChild(eee);
 };
-bet.setValue(localStorage.getItem(selectedUser + 'bet'));
-score.setValue(localStorage.getItem(selectedUser + 'score'));
+bet.setValue(localStorage.getItem(selectedUser.bet));
+score.setValue(localStorage.getItem(selectedUser.score));
 docQS('.exit').onclick = (e) => {
     let target = e.target;
     target.parentNode.style.display = 'none';

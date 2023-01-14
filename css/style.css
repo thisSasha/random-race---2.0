@@ -354,6 +354,7 @@ span {
     font-size: 8em;
 }
 
+
 .nav {
     display: flex;
     align-items: center;
@@ -399,9 +400,10 @@ span {
 }
 
 .nav input {
-    margin-top: -10px;
+    margin-top: 5px;
     border: white 1px solid;
     width: 88%;
+    margin-bottom: 10px;
 }
 
 .nav ul {
@@ -464,4 +466,8 @@ span {
     body{
         overflow: hidden;
     }
+}
+
+.nav label{
+    line-height: 100%;
 }
