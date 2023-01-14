@@ -67,7 +67,7 @@ p {
 .track2 .horizontalLine {
     position: absolute;
     background-color: white;
-    width: 100%;    
+    width: 100%;
     top: 6.67%;
     height: 6.67%;
 }
@@ -248,12 +248,12 @@ span {
     min-height: 5%;
     max-height: 30%;
     min-width: 15%;
-    color: var(--color);
+    color: white;
     background-color: #262628;
 }
 
 .╦context-menu__item {
-    border: var(--color) 1px solid;
+    border: white 1px solid;
     padding: 5px;
     width: 100%;
     display: block;
@@ -263,7 +263,7 @@ span {
     font-size: 3em;
     display: block;
     width: 100%;
-    color: var(--color);
+    color: white;
 }
 
 .context-menu--active {
@@ -273,11 +273,11 @@ span {
 
 .popups>* {
     box-shadow: 0px 0px 8px var(--color);
-    border: 3px solid var(--color);
+    border: 3px solid var(--borderColor);
     display: none;
 }
 
-.popups>.edit {
+.popups>div {
     text-align: center;
     position: fixed;
     top: 50%;
@@ -287,7 +287,7 @@ span {
     width: 60vw;
     transform: translate(-50%, -50%);
     z-index: 800;
-    background-color: rgb(58, 58, 58);
+    background-color: var(--popupColor);
 }
 
 .popups label {
@@ -329,6 +329,7 @@ span {
     font-size: 4em;
     position: absolute;
     left: 96%;
+    user-select: none;
     cursor: pointer;
 }
 
@@ -344,15 +345,25 @@ span {
     left: 0;
     z-index: 9999999;
 }
-.rotateDevice img{
+
+.rotateDevice img {
     margin-top: 48%;
     height: 20%;
     margin-bottom: 8%;
 }
-.rotateDevice p{
+
+.rotateDevice p {
     display: block;
     font-size: 8em;
 }
+
+#createAccount>ul {
+    padding: 4px;
+    padding-top: 8px;
+}
+
+
+
 
 
 .nav {
@@ -459,15 +470,17 @@ span {
     background-color: var(--liActive);
 }
 
-@media (max-width:400px) and (orientation:portrait) {
-    .rotateDevice{
-        display: block;
-    }
-    body{
-        overflow: hidden;
-    }
+.nav label {
+    line-height: 100%;
 }
 
-.nav label{
-    line-height: 100%;
+
+@media (max-width:400px) and (orientation:portrait) {
+    .rotateDevice {
+        display: block;
+    }
+
+    body {
+        overflow: hidden;
+    }
 }

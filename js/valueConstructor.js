@@ -1,6 +1,8 @@
 export { ValueObject }
 function ValueObject(params) {
-    if(params.object==undefined) {console.error('requiedParameter@object. Обязательный параметр object в params ValueObject')}
+    if (params.object == undefined) { console.error('requiedParameter@object. Обязательный параметр object в params ValueObject'); return };
+    if (params.defaultText == undefined) { console.error('requiedParameter@defaultText. Обязательный параметр defaultText в params ValueObject'); return };
+    if (params.value == undefined) { console.error('requiedParameter@value. Обязательный параметр value в params ValueObject'); return }
     this.localStorage = params.localStorage;
     this.localStorageName = params.localStorageName;
     this.object = params.object;

@@ -8,6 +8,8 @@ body{
     --textShadowThree: #1B1616;
     --allCashBg: #f5d98c;
     --navColor: rgb(58, 58, 58);
+    --popupColor: var(--navColor);
+    --borderColor: var(--color);
     --navObjects: #222;
     --boxShadowTwo: rgba(0, 0, 0, 0.25);
     --liActive: rgb(9, 9, 9);

@@ -19,13 +19,14 @@
     <ul class="nav">
         <li id="accounts"><span>Аккаунты</span>
         </li>
+        <li> <span id="selectedAccount"></span></li>
         <li id="createAccount">
             <span>Создать аккаунт</span>
             <ul>
                 <label for="nameAccount">Название аккаунта:</label>
                 <input type="text" id="nameAccount" placeholder="Введите название">
-                <label for="nameAccount">Пароль аккаунта(Оставьте пустым<br/>если пароля не будет):</label>
-                <input type="text" id="passwordAccount" placeholder="Введите пароль">
+                <label for="nameAccount">Пароль аккаунта(Оставьте пустым<br />если пароля не будет):</label>
+                <input id="passwordAccount" placeholder="Введите пароль" type="password">
                 <button id="saveAccount">Создать аккаунт</button>
             </ul>
         </li>
@@ -69,6 +70,12 @@
             <label for="accountNameEdit">Имя нового аккаунта</label>
             <input type="text" id="accountNameEdit">
             <button id="saveNameAccount">Изменить</button>
+        </div>
+        <div class="password">
+            <div class="exit">×</div>
+            <label for="password">Пароль:</label>
+            <input type="password" id="password">
+            <button id="enterPassword">Submit</button>
         </div>
     </div>
     <div class="rotateDevice" id="rotateDevice">

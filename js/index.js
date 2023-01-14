@@ -1,13 +1,15 @@
 import * as vc from './valueConstructor.js';
 import { ReklamaLink } from './reklamaPlugin.js';
 import * as lc from './listConstructor.js';
-localStorage.clear()
+//localStorage.clear()
 if (localStorage.innerUl == null) {
     localStorage.setItem('innerUl', `<li id='♫ghost'>Гостевой режим</li><!---->`);
     let ghostUser = {
         name: 'ghost',
         password: null,
         history: '',
+        score: 0,
+        bet: 0
     }
     localStorage.setItem('♫ghost', JSON.stringify(ghostUser))
 };
@@ -23,8 +25,8 @@ let getElementByInnerText = function (text) {
         };
     };
 };
-let ul = document.createElement('ul');
 let selectedUser = '♫ghost';
+let ul = document.createElement('ul');
 localStorage.setItem('selectedUser', selectedUser)
 let width = document.querySelector('.track1').offsetWidth;
 let height = width * 0.1267;
@@ -71,10 +73,17 @@ function every() {
         allCashWhere = bet;
         allCashUnWhere = score;
     };
-    localStorage.setItem(localStorage.getItem('selectedUser').score, score.getValue());
-    localStorage.setItem(localStorage.getItem('selectedUser').bet, bet.getValue());
 
-    docQS('#myList0').innerHTML = localStorage.getItem(selectedUser.hidtory);
+    let newUser = {
+        name: selectedUser,
+        bet: bet.getValue(),
+        score: score.getValue(),
+        password: JSON.parse(localStorage.getItem(selectedUser)).password,
+        history: docQS('#myList0').innerHTML,
+    };
+    localStorage.setItem(selectedUser, JSON.stringify(newUser));
+
+    docQS('#myList0').innerHTML = JSON.parse(localStorage.getItem(selectedUser)).history;
 
     checkEm();
 };
@@ -102,9 +111,8 @@ minusTen.onclick = function () {
 };
 myReklama.a.onclick = function () {
     score.addValue(50);
-    every();
     historyList.addLi('Была просмотрена реклама, за которую вы получили 50$');
-    localStorage.setItem(JSON.parse(localStorage.getItem(selectedUser)).history, docQS('#myList0').innerHTML);
+    every();
 };
 function checkEm() {
     let link = docQS('#theme');
@@ -124,7 +132,7 @@ function checkEm() {
     document.body.style.fontSize = `${localWidth / 151.9}px`;
 };
 document.body.onclick = checkEm();
-checkEm()
+checkEm();
 start.onclick = function () {
     if (bet.value > 0 && selectedNum != null) {
         historyList.addLi('Вы поставили ставку в размере ' + bet.getValue() + '$ на машину номер ' + selectedNum + '. Кто же победит?');
@@ -229,9 +237,10 @@ docQS('#saveAccount').onclick = () => {
         };
         if (password.value != '') {
             newUserL.password = password.value;
-        }
-        score.setValue(localStorage.getItem(selectedUser.score));
-        bet.setValue(localStorage.getItem(selectedUser.bet));
+            console.log(newUserL);
+        };
+        score.setValue(JSON.parse(localStorage.getItem(selectedUser)).score);
+        bet.setValue(JSON.parse(localStorage.getItem(selectedUser)).bet);
         localStorage.setItem('♫' + input.value, JSON.stringify(newUserL));
         every();
         input.value = 'Аккаунт создан';
@@ -248,24 +257,41 @@ docQS('#saveAccount').onclick = () => {
 docQS('#accounts').appendChild(ul);
 docQS('#accounts').onclick = (e) => {
     let el = e.target;
-    if (el.id.split('')[0] == '♫') {
-        bet.setValue(localStorage.getItem(el.id + 'bet'))
-        score.setValue(localStorage.getItem(el.id + 'score'))
-        selectedUser = el.id;
-        localStorage.setItem('selectedUser', selectedUser);
-        docQS('#myList0').innerHTML = JSON.parse(localStorage.getItem(selectedUser)).history;
-        if(JSON.parse(localStorage.getItem(selectedUser)).history == ''){
-            docQS('#myList0').innerHTML = 'l';
-            console.log('djjfjdj')
+    if (el.id.split('')[0] == '♫' && selectedUser != el.id) {
+        function f() {
+            selectedUserHTML.setValue(docQS('#'+el.id).innerHTML)
+            bet.setValue(JSON.parse(localStorage.getItem(el.id)).bet);
+            score.setValue(JSON.parse(localStorage.getItem(el.id)).score);
+            selectedUser = el.id;
+            every();
+            localStorage.setItem('selectedUser', selectedUser);
+        };
+        if (JSON.parse(localStorage.getItem(el.id)).password != null) {
+            docQS('div.password').style.display = 'block';
+            let input = docQS('#password');
+            docQS('#enterPassword').onclick = function () {
+                if (input.value == JSON.parse(localStorage.getItem(el.id)).password) {
+                    f();
+                    input.placeholder = 'Верный пароль';
+                    input.value = '';
+                    setTimeout(() => {
+                        input.placeholder = '';
+                        docQS('div.password').style.display = 'none';
+                    }, 2000)
+                } else {
+                    alert('Неверный пароль')
+                };
+            };
+        } else {
+            f();
         };
     };
-    every()
 };
 let contextMenu = new lc.List({
     'parent': document.body,
     'id': '╦context-menu',
     'articlesParams': [['className', '╦context-menu__item']]
-})
+});
 contextMenu.addLi('<a href="#" class="╦context-menu__link fa fa-editName"> Изменить название</a>');
 contextMenu.addLi('<a href="#" class="╦context-menu__link fa fa-delete"> Удалить аккаунт</a>');
 
@@ -342,9 +368,12 @@ docQS('.fa-editName').onclick = () => {
             };
             eee.id = '♫' + input.value;
             eee.innerHTML = input.value;
-            localStorage.setItem(eee.id, eee.id);
-            localStorage.setItem(eee.id + 'bet', 0);
-            localStorage.setItem(eee.id + 'score', 0);
+            localStorage.setItem(eee, JSON.stringify({
+                password: JSON.parse(localStorage.getItem(eee.id)).password,
+                name: input.value,
+                score: JSON.parse(localStorage.getItem(eee.id)).score,
+                bet: JSON.parse(localStorage.getItem(eee.id)).bet
+            }));
 
         } else {
             console.log(x);
@@ -361,15 +390,23 @@ docQS('.fa-delete').onclick = () => {
             inUl.splice(n, 1);
         };
     };
+    localStorage.removeItem(eee.id);
     localStorage.setItem('innerUl', inUl.join('<!---->'));
     eee.parentNode.removeChild(eee);
 };
-bet.setValue(localStorage.getItem(selectedUser.bet));
-score.setValue(localStorage.getItem(selectedUser.score));
-docQS('.exit').onclick = (e) => {
-    let target = e.target;
-    target.parentNode.style.display = 'none';
-};
+bet.setValue(JSON.parse(localStorage.getItem(selectedUser)).bet);
+score.setValue(JSON.parse(localStorage.getItem(selectedUser)).score);
+document.querySelectorAll('.exit').forEach(el => {
+    el.onclick = function (e) {
+        let target = e.target;
+        target.parentNode.style.display = 'none';
+    };
+});
 historyList.ul.style.maxHeight = historyList.ul.style.height;
 
+let selectedUserHTML = new vc.ValueObject({
+    object: docQS('#selectedAccount'),
+    defaultText: 'Текущий аккаунт: &value&',
+    value: document.getElementById(selectedUser).innerHTML,
+});
 every();
